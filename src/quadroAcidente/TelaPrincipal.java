@@ -5,18 +5,16 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -210,13 +208,16 @@ public class TelaPrincipal extends JFrame {
 		
 		System.out.println();
 		
-		dia_referencia = contagemInicial;		
-		
-		
-		
-		
-		
+		dia_referencia = contagemInicial;	
 		dataInicio = LocalDate.of(2022, 6, 14);
+		int d = 14;
+		int m = 6;
+		int y = 2022;
+		
+		Calendar nascimento = Calendar.getInstance();
+		SimpleDateFormat formato = new SimpleDateFormat(d+"/"+m+"/"+y );
+		
+		System.out.println("Data teste:"+formato.format(nascimento.getTime())); 
 		
 		long totalDiasFerias = ChronoUnit.DAYS.between(dataInicio, hoje);
 
@@ -224,14 +225,13 @@ public class TelaPrincipal extends JFrame {
 		
 
 		// PEGA DIFERENÇA ENTRE AS DATAS
-//		days = ChronoUnit.DAYS.between(dia_anterior, hoje);
+
 		days = ChronoUnit.DAYS.between(dataInicio, hoje);
 		
 		days-=1;
 
 		System.out.println("Diferença de dia: " + days);
 		
-//		int contagemInicial = 518;
 		int i;
 		for (i = 1; i <= days; i++) {
 		
@@ -241,11 +241,10 @@ public class TelaPrincipal extends JFrame {
 		
 		lbl_contagem.setText(String.valueOf(contagemInicial));
 		System.out.println("Quadro Acidentes: " + contagemInicial);
-		//txt_dias_decorrente.setText(String.valueOf(days));
-		
+			
 		txt_dias_decorrente.setText(String.valueOf(totalDiasFerias));
 		txt_dias_inicio.setText(String.valueOf(dia_referencia));
-		txtComeco.setText(String.valueOf(dataInicio));
+		txtComeco.setText(String.valueOf(formato.format(nascimento.getTime())));
 
 		Thread atualizaHora = new Thread(new Runnable() {
 
